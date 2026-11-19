@@ -4,11 +4,11 @@ const MP = {
   db:null, auth:null, ref:null, code:null, seat:0, token:null, handler:null, listener:null, ticker:null,
   async connect(h) {
     this.handler=h;
-    if(this.db) return;
+    if(this.db) { if(!this.auth.currentUser) await this.auth.signInAnonymously(); return; }
     if(!window.firebase || !window.FIREBASE_CONFIG || !FIREBASE_CONFIG.databaseURL || !FIREBASE_CONFIG.apiKey || FIREBASE_CONFIG.apiKey.includes('COLE_')) throw Error('Firebase não configurado. Veja FIREBASE_SETUP.md');
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
     this.db=firebase.database(); this.auth=firebase.auth();
-    await this.auth.signInAnonymously();
+    if(!this.auth.currentUser) await this.auth.signInAnonymously();
   },
   async create(cb) {
     try {
@@ -122,7 +122,7 @@ const MP = {
   leave(remove=true){
     if(this.ticker)clearInterval(this.ticker);this.ticker=null;
     if(this.ref&&this.listener)this.ref.off('value',this.listener);
-    if(remove&&this.ref)this.ref.remove().catch(()=>{});
+    if(remove&&this.ref && this.seat===0)this.ref.remove().catch(()=>{});
     this.ref=null;this.listener=null;this.code=null;this.seenInitial=false;this.lastShotRevision=null;
   }
 };
