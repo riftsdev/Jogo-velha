@@ -19,9 +19,9 @@
     "friendRequests": {
       "$to": {
         "$from": {
-          ".read": "auth != null && auth.uid === $to",
           ".write": "auth != null && (auth.uid === $from || auth.uid === $to) && (!newData.exists() || (auth.uid === $from && newData.child('fromName').isString()))"
-        }
+        },
+        ".read": "auth != null && auth.uid === $to"
       }
     },
     "friends": {
