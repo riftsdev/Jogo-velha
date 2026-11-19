@@ -16,7 +16,7 @@ const Ghost={
   const u=this.auth?.currentUser;
   document.getElementById('ghostStatus').textContent=u?(u.isAnonymous?'👻 Convidado — vincule um e-mail para proteger sua conta':'🔐 Conta protegida · '+(u.email||'')):'Conectando…';
   document.getElementById('ghostLinkBox').classList.toggle('hidden',!u||!u.isAnonymous);
-  document.getElementById('ghostLoginBox').classList.toggle('hidden',!!u&&!u.isAnonymous);
+  document.getElementById('ghostLoginBox').classList.toggle('hidden',!u||!u.isAnonymous);
  },
  async link(email,password){
   await this.ready();
@@ -38,6 +38,7 @@ const Ghost={
  },
  async logout(){
   await this.cancelQueue();
+  if(MP.ref)MP.leave();
   await this.auth.signOut();
   Social.uid=null;Social.profile=null;MP.db=null;MP.auth=null;
   await this.auth.signInAnonymously();
@@ -65,7 +66,7 @@ const Ghost={
     msg('Adversário encontrado!');this.busy=false;return;
    }
    const code=await this.makeRoom();
-   const tx=await q.transaction(x=>(!x||x.createdAt<Date.now()-90000||x.uid===uid)?{uid,code,createdAt:Date.now()}:undefined,undefined,false);
+   const tx=await q.transaction(x=>{const current=x===null?v:x;return (!current||current.createdAt<Date.now()-90000||current.uid===uid)?{uid,code,createdAt:Date.now()}:undefined;},undefined,false);
    if(!tx.committed){
     MP.leave();this.busy=false;return this.queue();
    }
