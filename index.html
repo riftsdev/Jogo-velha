@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#12142e">
+<title>PAINT TAC 3D</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud" class="hidden">
+  <div class="top">
+    <div class="chip" id="c0"><b>X</b><span id="n0"></span><i id="s0">0</i></div>
+    <div id="timer">10</div>
+    <div class="chip" id="c1"><b>O</b><span id="n1"></span><i id="s1">0</i></div>
+  </div>
+  <div id="banner"></div>
+  <button id="bPause" aria-label="Pausar">❚❚</button>
+  <div id="ret"></div>
+  <button id="fire">Atirar</button>
+</div>
+
+<section id="menu" class="scr">
+  <h1>PAINT TAC 3D</h1>
+  <p class="sub">Jogo da velha com bolas de tinta</p>
+  <button class="btn p" id="bLocal">Jogar no mesmo dispositivo</button>
+  <button class="btn o" id="bMulti">Multiplayer Wi-Fi</button>
+  <button class="btn" id="bSet">Configurações</button>
+  <button class="btn" id="bTut">Tutorial</button>
+</section>
+
+<section id="lobby" class="scr hidden">
+  <h2>Multiplayer Wi-Fi</h2>
+  <button class="btn p" id="bCreate">Criar sala</button>
+  <div class="row"><input id="inCode" maxlength="6" placeholder="CÓDIGO" autocomplete="off" autocapitalize="characters"><button class="btn o" id="bJoin" style="width:auto">Entrar na sala</button></div>
+  <div id="roomBox" class="hidden"><p>Código da sala</p><div id="code"></div><img id="qr" alt="QR Code da sala" width="160" height="160"><p>Aguardando o outro jogador…</p></div>
+  <p id="lobMsg" class="msg"></p>
+  <button class="btn" id="bLobBack">Voltar</button>
+</section>
+
+<section id="set" class="scr hidden">
+  <h2>Configurações</h2>
+  <label class="opt"><input type="checkbox" id="oSound"> Sons</label>
+  <label class="opt"><input type="checkbox" id="oVib"> Vibração (quando disponível)</label>
+  <label class="opt"><input type="checkbox" id="oPass"> Tela de passagem de turno (local)</label>
+  <label class="opt"><input type="checkbox" id="oLow"> Qualidade reduzida (mais fluidez)</label>
+  <button class="btn" id="bSetBack">Voltar</button>
+</section>
+
+<section id="tut" class="scr hidden">
+  <h2>Como jogar</h2>
+  <p class="txt">Jogador 1 usa tinta azul (X), jogador 2 usa laranja (O). Complete 3 símbolos em linha, coluna ou diagonal.</p>
+  <p class="txt">Celular: arraste na tela para mirar e toque em Atirar. PC: mova o mouse para mirar e clique (ou Espaço) para atirar. A trilha de pontos mostra a trajetória.</p>
+  <p class="txt">Cada turno tem 10 segundos. Errar o tabuleiro ou acertar uma célula ocupada gasta o turno. Dois turnos seguidos perdidos por tempo encerram a partida em empate.</p>
+  <button class="btn" id="bTutBack">Voltar</button>
+</section>
+
+<div id="pass" class="ov hidden"><h2 id="passT"></h2><p>Toque para jogar</p></div>
+<div id="pause" class="ov hidden"><h2>Pausa</h2><button class="btn p" id="bResume">Continuar</button><button class="btn" id="bQuit">Sair para o menu</button><p class="txt">No modo online o tempo não para.</p></div>
+<div id="result" class="ov hidden"><h2 id="rT"></h2><p id="rS"></p><button class="btn p" id="bAgain">Jogar novamente</button><button class="btn" id="bMenu">Menu</button></div>
+<div id="toast" class="hidden"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="physics.js"></script>
+<script src="game.js"></script>
+<script src="multiplayer.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
