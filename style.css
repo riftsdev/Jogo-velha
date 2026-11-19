@@ -72,3 +72,16 @@ input[type=text],#inCode{width:150px;padding:15px;background:#1c2050;font-size:2
 .social-row b{display:block;overflow-wrap:anywhere}
 .social-row small{display:block;opacity:.72;margin-top:3px}
 #social .msg{font-size:14px}
+
+/* v0.3 Conta Ghost e partidas rápidas */
+#ghost{justify-content:flex-start;gap:12px;padding-top:calc(var(--st) + 24px);padding-bottom:calc(var(--sb) + 30px)}
+#ghost .social-panel{display:flex;flex-direction:column;align-items:center;gap:10px}
+#ghost .social-panel.hidden{display:none}
+#ghost input{width:min(320px,84vw);padding:14px;background:#1c2050;font-size:16px;-webkit-user-select:text;user-select:text;text-align:left}
+#ghost .btn{font-size:16px;padding:13px}
+#ghost h3{margin:6px}
+#menu .btn{padding:11px}
+#menu .cover-art{max-height:135px}
+#menu .sub{font-size:14px}
+.invite-banner{position:fixed;z-index:12;top:calc(var(--st) + 8px);left:50%;transform:translateX(-50%);width:min(420px,94vw);padding:15px;background:#242a65;border:2px solid #ff9a3b;border-radius:18px;box-shadow:0 12px 40px #0009;text-align:center}
+.invite-banner b{display:block;margin-bottom:10px}
