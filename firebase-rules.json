@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "rooms": {
+      "$code": {
+        ".read": "auth != null && $code.matches(/^[A-HJ-NP-Z2-9]{6}$/)",
+        ".write": "auth != null && $code.matches(/^[A-HJ-NP-Z2-9]{6}$/) && ( (!data.exists() && newData.child('players/p0').val() === auth.uid) || (data.child('players/p0').val() === auth.uid) || (data.child('players/p1').val() === auth.uid) || (data.child('phase').val() === 'waiting' && !data.child('players/p1').exists() && newData.child('players/p1').val() === auth.uid) )"
+      }
+    }
+  }
+}
