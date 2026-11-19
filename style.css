@@ -48,3 +48,7 @@ input[type=text],#inCode{width:150px;padding:15px;background:#1c2050;font-size:2
 .cover-art span{position:relative;font-size:clamp(26px,7vw,52px);font-weight:1000;font-style:italic;color:#fff;text-shadow:0 4px 0 #111637,0 0 18px #2f7bff;letter-spacing:-1px}
 .cover-art strong{color:#ff9b28;text-shadow:0 4px 0 #51280b,0 0 18px #ff8a1f}
 .cover-art small{position:relative;font-size:16px;margin-top:12px;color:#fff;font-weight:800}
+
+/* Capa e versão 0.1 */
+#menu .cover-art{background:#111b42 url('cover.svg') center/cover no-repeat;aspect-ratio:16/9;height:auto;max-height:220px;width:min(86vw,480px)}
+#menu .game-version{margin:0 auto 12px;color:#c4d4ff;font-size:13px;letter-spacing:1.2px;font-weight:700;text-align:center}
