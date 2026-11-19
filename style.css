@@ -52,3 +52,23 @@ input[type=text],#inCode{width:150px;padding:15px;background:#1c2050;font-size:2
 /* Capa e versão 0.1 */
 #menu .cover-art{background:#111b42 url('cover.svg') center/cover no-repeat;aspect-ratio:16/9;height:auto;max-height:220px;width:min(86vw,480px)}
 #menu .game-version{margin:0 auto 12px;color:#c4d4ff;font-size:13px;letter-spacing:1.2px;font-weight:700;text-align:center}
+
+/* Social v0.2 — responsivo no iPhone e Android */
+#menu{justify-content:flex-start;padding-top:calc(var(--st) + 20px);padding-bottom:calc(var(--sb) + 30px);gap:9px}
+#menu .cover-art{max-height:175px}
+#menu h1{font-size:clamp(30px,8vw,52px)}
+#menu .btn{padding:13px}
+#social{justify-content:flex-start;gap:12px;padding-top:calc(var(--st) + 25px);padding-bottom:calc(var(--sb) + 35px)}
+#social h2{font-size:clamp(24px,6vw,36px)}
+#social h3{margin:12px 0 6px}
+.social-profile,.social-panel{width:min(500px,92vw);border:1px solid #ffffff24;background:#111638c9;border-radius:18px;padding:12px}
+.social-profile label{display:block;font-weight:700;margin-bottom:8px}
+.social-profile p{margin:12px 0 0}
+#social input{width:min(200px,48vw);font-size:16px;letter-spacing:0;text-transform:none}
+#friendCode{text-transform:uppercase!important;letter-spacing:2px!important}
+.social-action{padding:12px 15px;border-radius:12px;background:#4558ad;font-size:15px;font-weight:700;cursor:pointer}
+.social-list{display:flex;flex-direction:column;gap:7px;max-height:35vh;overflow-y:auto;touch-action:pan-y}
+.social-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:12px;background:#ffffff12;text-align:left}
+.social-row b{display:block;overflow-wrap:anywhere}
+.social-row small{display:block;opacity:.72;margin-top:3px}
+#social .msg{font-size:14px}
