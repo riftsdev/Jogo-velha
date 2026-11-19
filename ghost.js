@@ -10,7 +10,9 @@ const Ghost={
  },
  isGuest(){return !!this.auth?.currentUser?.isAnonymous;},
  async syncProfile(){
-  Social.uid=null;Social.profile=null;await Social.ready();this.updateUI();
+  if(this.inviteRef&&this.inviteHandler)this.inviteRef.off('value',this.inviteHandler);
+  this.inviteRef=null;this.inviteHandler=null;this.activeInvite=null;
+  Social.uid=null;Social.profile=null;await Social.ready();this.updateUI();await this.listenInvites();
  },
  updateUI(){
   const u=this.auth?.currentUser;
@@ -97,6 +99,7 @@ const Ghost={
  async invite(uid){
   await this.ready();
   if(uid===this.auth.currentUser.uid)throw Error('Não é possível convidar você mesmo.');
+  S.mode='online';
   const code=await this.makeRoom();
   const ref=this.db.ref('gameInvites/'+uid+'/'+this.auth.currentUser.uid);
   await ref.set({code,fromName:Social.profile?.name||'Jogador',createdAt:firebase.database.ServerValue.TIMESTAMP,status:'pending'});
