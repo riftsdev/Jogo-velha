@@ -2,7 +2,8 @@
 const Social={
  db:null,uid:null,profile:null,roomSeen:new Set(),
  async ready(){
-  if(this.uid)return;
+  if(this.uid && firebase.auth().currentUser && this.uid===firebase.auth().currentUser.uid)return;
+  this.uid=null;this.profile=null;
   if(!window.firebase||!window.FIREBASE_CONFIG)throw Error('Firebase indisponível');
   if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
   const auth=firebase.auth();if(!auth.currentUser)await auth.signInAnonymously();
@@ -86,7 +87,7 @@ async function refreshSocial(tab='ranking'){
    socialList('rankingList',people.map((p,i)=>socialRow((i+1)+'º '+(p.name||'Jogador')+(p.uid===Social.uid?' (você)':''),(p.points||0)+' pts · '+(p.wins||0)+' vitórias · '+(p.draws||0)+' empates')));
   }else{
    const [friends,requests]=await Promise.all([Social.friends(),Social.requests()]);
-   socialList('friendsList',friends.map(f=>socialRow(f.profile?.name||'Jogador',(f.profile?.points||0)+' pontos')));
+   socialList('friendsList',friends.map(f=>socialRow(f.profile?.name||'Jogador',(f.profile?.points||0)+' pontos',async()=>{try{await Ghost.invite(f.uid);}catch(e){socialMsg('Convite: '+e.message);}},'⚔️ Convidar')));
    socialList('requestsList',requests.map(r=>socialRow(r.fromName||'Jogador','Pedido recebido',async()=>{try{await Social.accept(r.uid);await refreshSocial('friends');}catch(e){socialMsg(e.message);}},'Aceitar')));
   }
  }catch(e){socialMsg('Erro: '+e.message);}
