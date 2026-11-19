@@ -52,7 +52,7 @@ const Ghost={
  },
  async joinRoom(code){
   await this.ready();await MP.connect(H);
-  return new Promise((resolve,reject)=>MP.join(code,r=>r.ok?resolve(r):reject(Error(r.error))));
+  return new Promise((resolve,reject)=>MP.join(code,r=>{if(r.ok){S.me=r.seat;S.wins=[0,0];resolve(r);}else reject(Error(r.error));}));
  },
  async queue(){
   if(this.busy)return;this.busy=true;
