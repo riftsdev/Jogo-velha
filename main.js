@@ -154,7 +154,7 @@ function finish(w, line, reason) {
   $('bAgain').textContent = 'Jogar novamente';
   setTimeout(() => { if (S.phase !== 'over') return; $('rT').textContent = t; $('rS').textContent = sub; show('result'); }, w === null ? 300 : 1200);
 }
-function leave() { if (S.mode === 'online') MP.leave(); S.mode = null; S.phase = 'menu'; S.paused = false; resetBoard(); go('menu'); }
+function leave() { if (typeof Ghost !== 'undefined') Ghost.cancelQueue().catch(()=>{}); if (S.mode === 'online') MP.leave(); S.mode = null; S.phase = 'menu'; S.paused = false; resetBoard(); go('menu'); }
 function tick(now) {
   if (S.phase !== 'turn' || S.paused) return;
   const left = Math.max(0, (S.end - now) / 1000), sec = Math.ceil(left);
