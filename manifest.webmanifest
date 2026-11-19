@@ -1,7 +1,7 @@
 {
   "name": "PAINT TAC 3D",
   "short_name": "PAINT TAC",
-  "description": "Jogo da velha 3D com bolas de tinta",
+  "description": "PAINT TAC 3D v0.3 — Conta Ghost, ranking, amigos e partidas 1v1",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
