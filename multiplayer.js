@@ -23,14 +23,25 @@ const MP = {
   },
   async join(code,cb) {
     try {
+      code=String(code||'').trim().toUpperCase();
+      if(!/^[A-HJ-NP-Z2-9]{6}$/.test(code)) return cb({ok:false,error:'Código inválido. Use os 6 caracteres da sala.'});
       const uid=this.auth.currentUser.uid, ref=this.db.ref('rooms/'+code);
+      // Ler antes da transação diferencia ausência de sala, ocupação e permissão.
+      const initial=(await ref.once('value')).val();
+      if(!initial)return cb({ok:false,error:'Sala não encontrada no banco. Crie uma sala nova no outro celular e confira o código.'});
+      if(!initial.players || !initial.players.p0)return cb({ok:false,error:'Sala incompleta. Crie uma nova sala.'});
+      if(initial.players.p0===uid)return cb({ok:false,error:'Você já é o criador desta sala. Entre pelo outro celular.'});
+      if(initial.players.p1 || initial.phase!=='waiting')return cb({ok:false,error:'Sala já iniciada ou cheia. Crie uma nova sala.'});
       const tx=await ref.transaction(v=>{
         if(!v || v.phase!=='waiting' || !v.players || v.players.p1 || v.players.p0===uid)return;
         v.players.p1=uid;v.phase='turn';v.deadline=Date.now()+10000;v.revision=(v.revision||0)+1;return v;
-      });
-      if(!tx.committed)return cb({ok:false,error:'Sala não encontrada ou já está cheia'});
+      },undefined,false);
+      if(!tx.committed)return cb({ok:false,error:'Outra pessoa entrou primeiro ou a sala mudou. Tente uma nova sala.'});
       this.bind(code,1);cb({ok:true,code,seat:1});
-    }catch(e){cb({ok:false,error:e.message});}
+    }catch(e){
+      const msg=e&&e.code==='PERMISSION_DENIED'?'Permissão negada pelo Firebase. Confira Authentication Anônimo e regras do Realtime Database.':(e.message||String(e));
+      cb({ok:false,error:msg});
+    }
   },
   bind(code,seat){
     this.leave(false);this.code=code;this.seat=seat;this.ref=this.db.ref('rooms/'+code);
