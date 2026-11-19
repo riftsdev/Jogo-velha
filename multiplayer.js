@@ -32,9 +32,18 @@ const MP = {
       if(!initial.players || !initial.players.p0)return cb({ok:false,error:'Sala incompleta. Crie uma nova sala.'});
       if(initial.players.p0===uid)return cb({ok:false,error:'Você já é o criador desta sala. Entre pelo outro celular.'});
       if(initial.players.p1 || initial.phase!=='waiting')return cb({ok:false,error:'Sala já iniciada ou cheia. Crie uma nova sala.'});
-      const tx=await ref.transaction(v=>{
+      // O SDK pode chamar o callback da transação primeiro com null,
+      // mesmo quando a sala já existe no servidor. Não aborte nessa chamada:
+      // use o snapshot lido previamente; o servidor verifica a revisão
+      // e reexecuta a transação caso tenha havido outra alteração.
+      const tx=await ref.transaction(current=>{
+        const v=current===null ? JSON.parse(JSON.stringify(initial)) : current;
         if(!v || v.phase!=='waiting' || !v.players || v.players.p1 || v.players.p0===uid)return;
-        v.players.p1=uid;v.phase='turn';v.deadline=Date.now()+10000;v.revision=(v.revision||0)+1;return v;
+        v.players.p1=uid;
+        v.phase='turn';
+        v.deadline=Date.now()+10000;
+        v.revision=(v.revision||0)+1;
+        return v;
       },undefined,false);
       if(!tx.committed)return cb({ok:false,error:'Outra pessoa entrou primeiro ou a sala mudou. Tente uma nova sala.'});
       this.bind(code,1);cb({ok:true,code,seat:1});
