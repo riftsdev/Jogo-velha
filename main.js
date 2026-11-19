@@ -183,7 +183,7 @@ const lobMsg = m => $('lobMsg').textContent = m || '';
 $('bCreate').onclick = async () => {
   lobMsg('Conectando…'); S.mode = 'online';
   try { await MP.connect(H); } catch (e) { S.mode = null; return lobMsg(e.message); }
-  MP.create(r => { if (!r.ok) return lobMsg(r.error); S.me = r.seat; S.wins = [0, 0]; $('code').textContent = r.code; $('qr').src = '/qr?u=' + encodeURIComponent(location.origin + '/?room=' + r.code); show('roomBox'); lobMsg(''); });
+  MP.create(r => { if (!r.ok) return lobMsg(r.error); S.me = r.seat; S.wins = [0, 0]; $('code').textContent = r.code; $('qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(location.origin + location.pathname + '?room=' + r.code); show('roomBox'); lobMsg(''); });
 };
 $('bJoin').onclick = async () => {
   const c = $('inCode').value.trim().toUpperCase(); if (c.length !== 6) return lobMsg('O código tem 6 caracteres'); lobMsg('Conectando…'); S.mode = 'online';
