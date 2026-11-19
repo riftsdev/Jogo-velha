@@ -39,6 +39,21 @@
           ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.hasChildren(['seat','at'])"
         }
       }
+    },
+    "matchmaking": {
+      "slot": {
+        ".read": "auth != null",
+        ".write": "auth != null && ((!newData.exists() && data.child('uid').val() === auth.uid) || (newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid || data.child('createdAt').val() < now - 90000)))",
+        ".validate": "newData.hasChildren(['uid','code','createdAt']) && newData.child('uid').isString() && newData.child('code').isString() && newData.child('createdAt').isNumber()"
+      }
+    },
+    "gameInvites": {
+      "$to": {
+        ".read": "auth != null && auth.uid === $to",
+        "$from": {
+          ".write": "auth != null && (auth.uid === $from || auth.uid === $to) && (!newData.exists() || (auth.uid === $from && newData.child('code').isString() && newData.child('status').val() === 'pending'))"
+        }
+      }
     }
   }
 }
