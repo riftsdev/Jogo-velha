@@ -63,7 +63,7 @@ const MP = {
         if(this.seenInitial) this.handler.shot(d.lastShot.data);
       }
       this.seenInitial=true;
-      if(d.phase==='over' && window.Social && d.players && d.players['p'+this.seat]===this.auth.currentUser.uid) {
+      if(d.phase==='over' && typeof Social !== 'undefined' && d.players && d.players['p'+this.seat]===this.auth.currentUser.uid) {
         Social.recordMatch(code+'R'+(d.round||0),this.seat,d.winner===-1?null:d.winner).catch(e=>console.warn('Ranking:',e.message));
       }
       if(d.phase==='flight')return;
