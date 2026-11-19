@@ -48,7 +48,7 @@ const Ghost={
  },
  async makeRoom(){
   await this.ready();await MP.connect(H);
-  return new Promise((resolve,reject)=>MP.create(r=>r.ok?resolve(r.code):reject(Error(r.error))));
+  return new Promise((resolve,reject)=>MP.create(r=>{if(r.ok){S.me=r.seat;S.wins=[0,0];resolve(r.code);}else reject(Error(r.error));}));
  },
  async joinRoom(code){
   await this.ready();await MP.connect(H);
