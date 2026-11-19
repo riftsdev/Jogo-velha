@@ -1,0 +1,9 @@
+{
+  "name": "paint-tac-3d",
+  "version": "0.1.0",
+  "description": "Jogo da velha 3D com tinta - local e multiplayer Wi-Fi",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": { "express": "^4.19.2", "qrcode": "^1.5.4", "socket.io": "^4.7.5" }
+}
