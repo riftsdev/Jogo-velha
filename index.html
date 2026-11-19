@@ -24,16 +24,16 @@
 </div>
 
 <section id="menu" class="scr">
-  <h1>PAINT TAC 3D</h1>
+  <div class="cover-art" role="img" aria-label="Capa do PAINT TAC 3D"><span>PAINT <strong>TAC 3D</strong></span><small>🔵 X  ⚔  O 🟠</small></div><h1>PAINT TAC 3D</h1>
   <p class="sub">Jogo da velha com bolas de tinta</p>
   <button class="btn p" id="bLocal">Jogar no mesmo dispositivo</button>
-  <button class="btn o" id="bMulti">Multiplayer Wi-Fi</button>
+  <button class="btn o" id="bMulti">Multiplayer online</button>
   <button class="btn" id="bSet">Configurações</button>
   <button class="btn" id="bTut">Tutorial</button>
 </section>
 
 <section id="lobby" class="scr hidden">
-  <h2>Multiplayer Wi-Fi</h2>
+  <h2>Multiplayer online</h2>
   <button class="btn p" id="bCreate">Criar sala</button>
   <div class="row"><input id="inCode" maxlength="6" placeholder="CÓDIGO" autocomplete="off" autocapitalize="characters"><button class="btn o" id="bJoin" style="width:auto">Entrar na sala</button></div>
   <div id="roomBox" class="hidden"><p>Código da sala</p><div id="code"></div><img id="qr" alt="QR Code da sala" width="160" height="160"><p>Aguardando o outro jogador…</p></div>
@@ -66,6 +66,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="physics.js"></script>
 <script src="game.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
 <script src="multiplayer.js"></script>
 <script src="main.js"></script>
 </body>
