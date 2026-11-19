@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#12142e">
-<title>PAINT TAC 3D · v0.1</title>
+<title>PAINT TAC 3D · v0.2</title>
 <link rel="manifest" href="manifest.webmanifest?v=0.1.1">
 <link rel="icon" type="image/svg+xml" href="icon.svg?v=0.1.1">
 <link rel="apple-touch-icon" href="icon.svg">
 <meta name="apple-mobile-web-app-title" content="PAINT TAC 3D">
-<meta name="description" content="PAINT TAC 3D v0.1 — jogo da velha com bolas de tinta">
-<link rel="stylesheet" href="style.css?v=0.1.1">
+<meta name="description" content="PAINT TAC 3D v0.2 — jogo da velha com bolas de tinta">
+<link rel="stylesheet" href="style.css?v=0.2">
 </head>
 <body>
 <canvas id="c"></canvas>
@@ -29,10 +29,12 @@
 </div>
 
 <section id="menu" class="scr">
-  <div class="cover-art" role="img" aria-label="Capa do PAINT TAC 3D"></div><h1>PAINT TAC 3D</h1><p class="game-version">Versão 0.1</p>
+  <div class="cover-art" role="img" aria-label="Capa do PAINT TAC 3D"></div><h1>PAINT TAC 3D</h1><p class="game-version">Versão 0.2</p>
   <p class="sub">Jogo da velha com bolas de tinta</p>
   <button class="btn p" id="bLocal">Jogar no mesmo dispositivo</button>
   <button class="btn o" id="bMulti">Multiplayer online</button>
+  <button class="btn" id="bRanking">🏆 Ranking</button>
+  <button class="btn" id="bFriends">👥 Amigos</button>
   <button class="btn" id="bSet">Configurações</button>
   <button class="btn" id="bTut">Tutorial</button>
 </section>
@@ -44,6 +46,15 @@
   <div id="roomBox" class="hidden"><p>Código da sala</p><div id="code"></div><img id="qr" alt="QR Code da sala" width="160" height="160"><p>Aguardando o outro jogador…</p></div>
   <p id="lobMsg" class="msg"></p>
   <button class="btn" id="bLobBack">Voltar</button>
+</section>
+
+<section id="social" class="scr hidden">
+  <h2>🏆 PAINT TAC Social</h2>
+  <div class="social-profile"><label for="profileName">Seu apelido</label><div class="row"><input id="profileName" maxlength="20" placeholder="Seu nome"><button class="social-action" id="bSaveName">Salvar</button></div><p>Seu código de amigo: <strong id="myFriendCode">—</strong></p></div>
+  <div class="row"><button class="social-action" id="bSocialRank">🏆 Ranking</button><button class="social-action" id="bSocialFriends">👥 Amigos</button></div>
+  <div id="rankingPanel" class="social-panel"><h3>Top 30 · Online</h3><p class="txt">Vitória +3 pontos · Empate +1 ponto</p><div id="rankingList" class="social-list"></div></div>
+  <div id="friendsPanel" class="social-panel hidden"><h3>Adicionar amigo</h3><div class="row"><input id="friendCode" maxlength="8" placeholder="CÓDIGO"><button class="social-action" id="bAddFriend">Adicionar</button></div><h3>Pedidos recebidos</h3><div id="requestsList" class="social-list"></div><h3>Meus amigos</h3><div id="friendsList" class="social-list"></div></div>
+  <p id="socialMsg" class="msg"></p><button class="btn" id="bSocialBack">Voltar</button>
 </section>
 
 <section id="set" class="scr hidden">
@@ -75,7 +86,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="firebase-config.js"></script>
-<script src="multiplayer.js?v=0.1.2"></script>
-<script src="main.js?v=0.1.1"></script>
+<script src="multiplayer.js?v=0.2"></script>
+<script src="main.js?v=0.2"></script>
+<script src="social.js?v=0.2"></script>
 </body>
 </html>
