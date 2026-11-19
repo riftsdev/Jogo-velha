@@ -3,7 +3,41 @@
     "rooms": {
       "$code": {
         ".read": "auth != null && $code.matches(/^[A-HJ-NP-Z2-9]{6}$/)",
-        ".write": "auth != null && $code.matches(/^[A-HJ-NP-Z2-9]{6}$/) && ( (!data.exists() && newData.child('players/p0').val() === auth.uid) || (data.child('players/p0').val() === auth.uid) || (data.child('players/p1').val() === auth.uid) || (data.child('phase').val() === 'waiting' && !data.child('players/p1').exists() && newData.child('players/p1').val() === auth.uid) )"
+        ".write": "auth != null && $code.matches(/^[A-HJ-NP-Z2-9]{6}$/) && ((!data.exists() && newData.child('players/p0').val() === auth.uid) || data.child('players/p0').val() === auth.uid || data.child('players/p1').val() === auth.uid || (data.child('phase').val() === 'waiting' && !data.child('players/p1').exists() && newData.child('players/p1').val() === auth.uid))"
+      }
+    },
+    "profiles": {
+      ".read": "auth != null",
+      ".indexOn": [
+        "points"
+      ],
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['name','wins','losses','draws','points']) && newData.child('name').isString() && newData.child('name').val().length <= 20 && newData.child('wins').isNumber() && newData.child('losses').isNumber() && newData.child('draws').isNumber() && newData.child('points').isNumber()"
+      }
+    },
+    "friendRequests": {
+      "$to": {
+        "$from": {
+          ".read": "auth != null && auth.uid === $to",
+          ".write": "auth != null && (auth.uid === $from || auth.uid === $to) && (!newData.exists() || (auth.uid === $from && newData.child('fromName').isString()))"
+        }
+      }
+    },
+    "friends": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "$friend": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === $friend) && (!newData.exists() || newData.val() === true)"
+        }
+      }
+    },
+    "matchResults": {
+      "$room": {
+        "$uid": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.hasChildren(['seat','at'])"
+        }
       }
     }
   }
