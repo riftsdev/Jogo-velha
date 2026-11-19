@@ -1,0 +1,19 @@
+{
+  "name": "PAINT TAC 3D",
+  "short_name": "PAINT TAC",
+  "description": "Jogo da velha 3D com bolas de tinta",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#12142e",
+  "theme_color": "#12142e",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
