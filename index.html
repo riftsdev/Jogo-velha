@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#12142e">
-<title>PAINT TAC 3D · v0.2</title>
-<link rel="manifest" href="manifest.webmanifest?v=0.1.1">
+<title>PAINT TAC 3D · v0.3</title>
+<link rel="manifest" href="manifest.webmanifest?v=0.3">
 <link rel="icon" type="image/svg+xml" href="icon.svg?v=0.1.1">
 <link rel="apple-touch-icon" href="icon.svg">
 <meta name="apple-mobile-web-app-title" content="PAINT TAC 3D">
-<meta name="description" content="PAINT TAC 3D v0.2 — jogo da velha com bolas de tinta">
-<link rel="stylesheet" href="style.css?v=0.2">
+<meta name="description" content="PAINT TAC 3D v0.3 — jogo da velha com bolas de tinta">
+<link rel="stylesheet" href="style.css?v=0.3">
 </head>
 <body>
 <canvas id="c"></canvas>
@@ -29,10 +29,11 @@
 </div>
 
 <section id="menu" class="scr">
-  <div class="cover-art" role="img" aria-label="Capa do PAINT TAC 3D"></div><h1>PAINT TAC 3D</h1><p class="game-version">Versão 0.2</p>
+  <div class="cover-art" role="img" aria-label="Capa do PAINT TAC 3D"></div><h1>PAINT TAC 3D</h1><p class="game-version">Versão 0.3</p>
   <p class="sub">Jogo da velha com bolas de tinta</p>
   <button class="btn p" id="bLocal">Jogar no mesmo dispositivo</button>
   <button class="btn o" id="bMulti">Multiplayer online</button>
+  <button class="btn" id="bGhost">👻 Conta Ghost</button>
   <button class="btn" id="bRanking">🏆 Ranking</button>
   <button class="btn" id="bFriends">👥 Amigos</button>
   <button class="btn" id="bSet">Configurações</button>
@@ -41,7 +42,9 @@
 
 <section id="lobby" class="scr hidden">
   <h2>Multiplayer online</h2>
-  <button class="btn p" id="bCreate">Criar sala</button>
+  <button class="btn p" id="bQuick">⚔️ Buscar partida rápida 1v1</button>
+  <button class="btn" id="bCancelQueue">Cancelar busca</button>
+  <button class="btn p" id="bCreate">Criar sala privada</button>
   <div class="row"><input id="inCode" maxlength="6" placeholder="CÓDIGO" autocomplete="off" autocapitalize="characters"><button class="btn o" id="bJoin" style="width:auto">Entrar na sala</button></div>
   <div id="roomBox" class="hidden"><p>Código da sala</p><div id="code"></div><img id="qr" alt="QR Code da sala" width="160" height="160"><p>Aguardando o outro jogador…</p></div>
   <p id="lobMsg" class="msg"></p>
@@ -56,6 +59,32 @@
   <div id="friendsPanel" class="social-panel hidden"><h3>Adicionar amigo</h3><div class="row"><input id="friendCode" maxlength="8" placeholder="CÓDIGO"><button class="social-action" id="bAddFriend">Adicionar</button></div><h3>Pedidos recebidos</h3><div id="requestsList" class="social-list"></div><h3>Meus amigos</h3><div id="friendsList" class="social-list"></div></div>
   <p id="socialMsg" class="msg"></p><button class="btn" id="bSocialBack">Voltar</button>
 </section>
+
+<section id="ghost" class="scr hidden">
+  <h2>👻 Conta Ghost</h2>
+  <p id="ghostStatus" class="txt">Conectando…</p>
+  <div id="ghostLinkBox" class="social-panel">
+    <h3>Proteger minha conta</h3>
+    <p class="txt">Vincule seu convidado atual sem perder apelido, amigos ou pontos.</p>
+    <input id="ghostEmail" type="email" autocomplete="email" placeholder="Seu e-mail">
+    <input id="ghostPassword" type="password" autocomplete="new-password" placeholder="Senha (mín. 6)">
+    <button class="btn p" id="bGhostLink">Vincular e-mail e senha</button>
+  </div>
+  <div id="ghostLoginBox" class="social-panel">
+    <h3>Entrar em uma conta existente</h3>
+    <input id="loginEmail" type="email" autocomplete="email" placeholder="Seu e-mail">
+    <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Sua senha">
+    <button class="btn p" id="bGhostLogin">Entrar</button>
+    <button class="social-action" id="bGhostReset">Recuperar senha</button>
+  </div>
+  <p id="ghostMsg" class="msg"></p>
+  <button class="social-action" id="bGhostLogout">Trocar para novo convidado</button>
+  <button class="btn" id="bGhostBack">Voltar</button>
+</section>
+<div id="inviteBanner" class="invite-banner hidden">
+  <b id="inviteText">Convite de duelo</b>
+  <div class="row"><button class="social-action" id="bInviteAccept">Aceitar</button><button class="social-action" id="bInviteDecline">Recusar</button></div>
+</div>
 
 <section id="set" class="scr hidden">
   <h2>Configurações</h2>
@@ -86,8 +115,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script src="firebase-config.js"></script>
-<script src="multiplayer.js?v=0.2"></script>
-<script src="main.js?v=0.2"></script>
-<script src="social.js?v=0.2"></script>
+<script src="multiplayer.js?v=0.3"></script>
+<script src="main.js?v=0.3"></script>
+<script src="social.js?v=0.3"></script>
+<script src="ghost.js?v=0.3"></script>
 </body>
 </html>
